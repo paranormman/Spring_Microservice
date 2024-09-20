@@ -1,15 +1,16 @@
 package com.vestachrono.aopApp.services.impl;
 
+import com.vestachrono.aopApp.aspects.MyLogging;
 import com.vestachrono.aopApp.services.ShipmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
 public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
+    @MyLogging
     public String orderPackage(Long orderId) {
         try {
             log.info("Processing the order...");
@@ -21,7 +22,6 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
 
     @Override
-//    @Transactional
     public String trackPackage(Long orderId) {
         try {
             log.info("Tracking the order...");
