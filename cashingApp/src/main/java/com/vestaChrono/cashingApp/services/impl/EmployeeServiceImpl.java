@@ -8,6 +8,9 @@ import com.vestaChrono.cashingApp.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     private final EmployeeRepository employeeRepository;
     private final ModelMapper modelMapper;
+    private final String CACHE_NAME = "employees";
 
     @Override
+    @Cacheable(cacheNames = CACHE_NAME, key = "#id")
     public EmployeeDto getEmployeeById(Long id) {
         log.info("Fetching employee with Id {}", id);
         Employee employee = employeeRepository.findById(id)
@@ -34,6 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
+    @CachePut(cacheNames = CACHE_NAME, key = "#result.id")
     public EmployeeDto createNewEmployee(EmployeeDto employeeDto) {
         log.info("Create Employee with email {}", employeeDto.getEmail());
         List<Employee> existingEmployee = employeeRepository.findByEmail(employeeDto.getEmail());
@@ -50,27 +56,30 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
+    @CachePut(cacheNames = CACHE_NAME, key = "#id")
     public EmployeeDto updateEmployee(Long id, EmployeeDto employeeDto) {
-        log.info("Update Employee with id: {}", id);
+        log.info("Updating employee with id: {}", id);
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.info("Employee not found with id {}", id);
-                    return new ResourceNotFoundException("Employee not found with Id {}" + id);
+                    log.error("Employee not found with id: {}", id);
+                    return new ResourceNotFoundException("Employee not found with id: " + id);
                 });
 
         if (!employee.getEmail().equals(employeeDto.getEmail())) {
-            log.error("Attempted to update email with id: {}", id);
-            throw new RuntimeException("The email of the Employee can not be updated");
+            log.error("Attempted to update email for employee with id: {}", id);
+            throw new RuntimeException("The email of the employee cannot be updated");
         }
+
         modelMapper.map(employeeDto, employee);
         employee.setId(id);
 
         Employee savedEmployee = employeeRepository.save(employee);
-        log.info("Successfully updated Employee with id {}", id);
+        log.info("Successfully updated employee with id: {}", id);
         return modelMapper.map(savedEmployee, EmployeeDto.class);
     }
 
     @Override
+    @CacheEvict(cacheNames = CACHE_NAME, key = "#id")
     public void deleteEmployee(Long id) {
         log.info("Deleting Employee with id, {}", id);
         boolean isExists = employeeRepository.existsById(id);
