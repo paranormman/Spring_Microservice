@@ -2,7 +2,9 @@ package com.vestaChrono.cashingApp.controller;
 
 import com.vestaChrono.cashingApp.dto.EmployeeDto;
 import com.vestaChrono.cashingApp.entities.Employee;
+import com.vestaChrono.cashingApp.entities.SalaryAccount;
 import com.vestaChrono.cashingApp.services.EmployeeService;
+import com.vestaChrono.cashingApp.services.SalaryAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final SalaryAccountService salaryAccountService;
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id) {
@@ -34,9 +37,15 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public  ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/incrementBalance/{accountId}")
+    public ResponseEntity<SalaryAccount> incrementBalance(@PathVariable Long accountId) {
+        SalaryAccount salaryAccount = salaryAccountService.incrementSalary(accountId);
+        return ResponseEntity.ok(salaryAccount);
     }
 
 

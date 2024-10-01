@@ -5,6 +5,7 @@ import com.vestaChrono.cashingApp.entities.Employee;
 import com.vestaChrono.cashingApp.exception.ResourceNotFoundException;
 import com.vestaChrono.cashingApp.repositories.EmployeeRepository;
 import com.vestaChrono.cashingApp.services.EmployeeService;
+import com.vestaChrono.cashingApp.services.SalaryAccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService{
 
     private final EmployeeRepository employeeRepository;
+    private final SalaryAccountService salaryAccountService;
     private final ModelMapper modelMapper;
     private final String CACHE_NAME = "employees";
 
@@ -40,6 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     @CachePut(cacheNames = CACHE_NAME, key = "#result.id")
+    @Transactional
     public EmployeeDto createNewEmployee(EmployeeDto employeeDto) {
         log.info("Create Employee with email {}", employeeDto.getEmail());
         List<Employee> existingEmployee = employeeRepository.findByEmail(employeeDto.getEmail());
@@ -50,6 +54,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 
         Employee newEmployee = modelMapper.map(employeeDto, Employee.class);
         Employee savedEmployee = employeeRepository.save(newEmployee);
+
+//        create a salary account for the employee
+        salaryAccountService.createAccount(savedEmployee);
 
         log.info("Successfully created Employee with email {}", employeeDto.getEmail());
         return modelMapper.map(savedEmployee, EmployeeDto.class);
