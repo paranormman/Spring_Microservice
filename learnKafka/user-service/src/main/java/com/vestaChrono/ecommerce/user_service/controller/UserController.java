@@ -1,14 +1,13 @@
 package com.vestaChrono.ecommerce.user_service.controller;
 
+import com.vestaChrono.ecommerce.user_service.dto.CreateUserRequestDto;
+import com.vestaChrono.ecommerce.user_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -20,6 +19,13 @@ public class UserController {
     private String KAFKA_RANDOM_USER_TOPIC;
 
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final UserService userService;
+
+    @PostMapping
+    public ResponseEntity<String> createUser(@RequestBody CreateUserRequestDto createUserRequestDto) {
+        userService.createUser(createUserRequestDto);
+        return ResponseEntity.ok("User is created");
+    }
 
     @PostMapping("/{message}")
     public ResponseEntity<String> sendMessage (@PathVariable String message) {

@@ -1,5 +1,6 @@
 package com.vestaChrono.ecommerce.notification_service.consumer;
 
+import com.vestaChrono.ecommerce.user_service.event.UserCreatedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -9,6 +10,11 @@ import org.springframework.stereotype.Service;
 public class UserKafkaConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(UserKafkaConsumer.class);
+
+    @KafkaListener(topics = "user-created-topic")
+    public void handleUserCreated(UserCreatedEvent userCreatedEvent) {
+        log.info("handleUserCreated: {}", userCreatedEvent);
+    }
 
     @KafkaListener(topics = "user-random-topic")
     public void handleUserRandomTopic1(String message) {
