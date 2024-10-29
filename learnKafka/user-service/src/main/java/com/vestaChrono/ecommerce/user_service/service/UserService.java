@@ -1,8 +1,8 @@
 package com.vestaChrono.ecommerce.user_service.service;
 
+import com.vestaChrono.ecommerce.event.UserCreatedEvent;
 import com.vestaChrono.ecommerce.user_service.dto.CreateUserRequestDto;
 import com.vestaChrono.ecommerce.user_service.entity.User;
-import com.vestaChrono.ecommerce.user_service.event.UserCreatedEvent;
 import com.vestaChrono.ecommerce.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

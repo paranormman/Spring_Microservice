@@ -1,6 +1,6 @@
 package com.vestaChrono.ecommerce.notification_service.consumer;
 
-import com.vestaChrono.ecommerce.user_service.event.UserCreatedEvent;
+import com.vestaChrono.ecommerce.event.UserCreatedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
