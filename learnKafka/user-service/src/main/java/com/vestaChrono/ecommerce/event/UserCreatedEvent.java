@@ -13,8 +13,8 @@ import org.apache.avro.message.SchemaStore;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -2957271933076114153L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"UserCreatedEvent\",\"namespace\":\"com.vestaChrono.ecommerce.event\",\"fields\":[{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"}]}");
+  private static final long serialVersionUID = -7579750437533415970L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"UserCreatedEvent\",\"namespace\":\"com.vestaChrono.ecommerce.event\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"default\":0},{\"name\":\"fullName\",\"type\":\"string\",\"default\":\"\"},{\"name\":\"email\",\"type\":\"string\",\"default\":\"\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -52,7 +52,7 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
   }
 
   @Deprecated public long id;
-  @Deprecated public java.lang.CharSequence name;
+  @Deprecated public java.lang.CharSequence fullName;
   @Deprecated public java.lang.CharSequence email;
 
   /**
@@ -65,12 +65,12 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
   /**
    * All-args constructor.
    * @param id The new value for id
-   * @param name The new value for name
+   * @param fullName The new value for fullName
    * @param email The new value for email
    */
-  public UserCreatedEvent(java.lang.Long id, java.lang.CharSequence name, java.lang.CharSequence email) {
+  public UserCreatedEvent(java.lang.Long id, java.lang.CharSequence fullName, java.lang.CharSequence email) {
     this.id = id;
-    this.name = name;
+    this.fullName = fullName;
     this.email = email;
   }
 
@@ -79,7 +79,7 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return id;
-    case 1: return name;
+    case 1: return fullName;
     case 2: return email;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
@@ -90,7 +90,7 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: id = (java.lang.Long)value$; break;
-    case 1: name = (java.lang.CharSequence)value$; break;
+    case 1: fullName = (java.lang.CharSequence)value$; break;
     case 2: email = (java.lang.CharSequence)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
@@ -113,19 +113,19 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
   }
 
   /**
-   * Gets the value of the 'name' field.
-   * @return The value of the 'name' field.
+   * Gets the value of the 'fullName' field.
+   * @return The value of the 'fullName' field.
    */
-  public java.lang.CharSequence getName() {
-    return name;
+  public java.lang.CharSequence getFullName() {
+    return fullName;
   }
 
   /**
-   * Sets the value of the 'name' field.
+   * Sets the value of the 'fullName' field.
    * @param value the value to set.
    */
-  public void setName(java.lang.CharSequence value) {
-    this.name = value;
+  public void setFullName(java.lang.CharSequence value) {
+    this.fullName = value;
   }
 
   /**
@@ -177,7 +177,7 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
     implements org.apache.avro.data.RecordBuilder<UserCreatedEvent> {
 
     private long id;
-    private java.lang.CharSequence name;
+    private java.lang.CharSequence fullName;
     private java.lang.CharSequence email;
 
     /** Creates a new Builder */
@@ -195,8 +195,8 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
         this.id = data().deepCopy(fields()[0].schema(), other.id);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.name)) {
-        this.name = data().deepCopy(fields()[1].schema(), other.name);
+      if (isValidValue(fields()[1], other.fullName)) {
+        this.fullName = data().deepCopy(fields()[1].schema(), other.fullName);
         fieldSetFlags()[1] = true;
       }
       if (isValidValue(fields()[2], other.email)) {
@@ -215,8 +215,8 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
         this.id = data().deepCopy(fields()[0].schema(), other.id);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.name)) {
-        this.name = data().deepCopy(fields()[1].schema(), other.name);
+      if (isValidValue(fields()[1], other.fullName)) {
+        this.fullName = data().deepCopy(fields()[1].schema(), other.fullName);
         fieldSetFlags()[1] = true;
       }
       if (isValidValue(fields()[2], other.email)) {
@@ -264,40 +264,40 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
     }
 
     /**
-      * Gets the value of the 'name' field.
+      * Gets the value of the 'fullName' field.
       * @return The value.
       */
-    public java.lang.CharSequence getName() {
-      return name;
+    public java.lang.CharSequence getFullName() {
+      return fullName;
     }
 
     /**
-      * Sets the value of the 'name' field.
-      * @param value The value of 'name'.
+      * Sets the value of the 'fullName' field.
+      * @param value The value of 'fullName'.
       * @return This builder.
       */
-    public com.vestaChrono.ecommerce.event.UserCreatedEvent.Builder setName(java.lang.CharSequence value) {
+    public com.vestaChrono.ecommerce.event.UserCreatedEvent.Builder setFullName(java.lang.CharSequence value) {
       validate(fields()[1], value);
-      this.name = value;
+      this.fullName = value;
       fieldSetFlags()[1] = true;
       return this;
     }
 
     /**
-      * Checks whether the 'name' field has been set.
-      * @return True if the 'name' field has been set, false otherwise.
+      * Checks whether the 'fullName' field has been set.
+      * @return True if the 'fullName' field has been set, false otherwise.
       */
-    public boolean hasName() {
+    public boolean hasFullName() {
       return fieldSetFlags()[1];
     }
 
 
     /**
-      * Clears the value of the 'name' field.
+      * Clears the value of the 'fullName' field.
       * @return This builder.
       */
-    public com.vestaChrono.ecommerce.event.UserCreatedEvent.Builder clearName() {
-      name = null;
+    public com.vestaChrono.ecommerce.event.UserCreatedEvent.Builder clearFullName() {
+      fullName = null;
       fieldSetFlags()[1] = false;
       return this;
     }
@@ -347,7 +347,7 @@ public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBas
       try {
         UserCreatedEvent record = new UserCreatedEvent();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.Long) defaultValue(fields()[0]);
-        record.name = fieldSetFlags()[1] ? this.name : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.fullName = fieldSetFlags()[1] ? this.fullName : (java.lang.CharSequence) defaultValue(fields()[1]);
         record.email = fieldSetFlags()[2] ? this.email : (java.lang.CharSequence) defaultValue(fields()[2]);
         return record;
       } catch (java.lang.Exception e) {

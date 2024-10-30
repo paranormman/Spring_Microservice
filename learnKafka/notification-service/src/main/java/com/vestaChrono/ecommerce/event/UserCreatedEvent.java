@@ -14,7 +14,7 @@ import org.apache.avro.message.SchemaStore;
 @org.apache.avro.specific.AvroGenerated
 public class UserCreatedEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = -2957271933076114153L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"UserCreatedEvent\",\"namespace\":\"com.vestaChrono.ecommerce.event\",\"fields\":[{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"UserCreatedEvent\",\"namespace\":\"com.vestaChrono.ecommerce.event\",\"fields\":[{\"name\":\"id\",\"type\":\"long\",\"default\":0},{\"name\":\"name\",\"type\":\"string\",\"default\":\"\"},{\"name\":\"email\",\"type\":\"string\",\"default\":\"\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();

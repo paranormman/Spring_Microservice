@@ -5,15 +5,18 @@
   "fields": [
     {
       "name": "id",
-      "type": "long"
+      "type": "long",
+      "default": 0
     },
     {
       "name": "name",
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
     {
       "name": "email",
-      "type": "string"
+      "type": "string",
+      "default": ""
     }
   ]
 }
