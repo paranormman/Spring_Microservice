@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  product-db:
+    image: postgres:latest
+    container_name: product-db
+#    ports:
+#      - "5432:5432"
+    environment:
+      POSTGRES_DB: productdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Manoj@123
+    volumes:
+      - product-db-data:/var/lib/postgresql/data
+    networks:
+      - myNetwork
+
+  product-service:
+    image: manoj231416/product-service
+    container_name: product-service
+    ports:
+      - "8080:8080"
+    networks:
+      - myNetwork
+    depends_on:
+      - product-db
+
+volumes:
+  product-db-data:
+
+
+networks:
+  myNetwork:
